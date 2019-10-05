@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameManager
+  - WEAPON_DAMAGE_AREA
+  - ITEM_COLLECTION_AREA
+  - POWER_DOWN
+  - POWER_UP
+  - CASTLE
+  - DEATH
+  - UnblinkingSprite
+  - Enemy
   layers:
   - Default
   - TransparentFX
