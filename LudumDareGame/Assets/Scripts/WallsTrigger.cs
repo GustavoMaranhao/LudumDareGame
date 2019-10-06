@@ -6,7 +6,7 @@ public class WallsTrigger : MonoBehaviour
     {
         if (collision.collider.tag == "Player")
         {
-            GlobalEvents.PlayerHitWall(this, null);
+            GlobalEvents.PlayerHitWall(this, new WallEventArgs(gameObject.tag));
         }
     }
 

@@ -4,20 +4,55 @@ using UnityEngine;
 
 public class WeaponTriggers : MonoBehaviour
 {
-    public float weaponDamage = 10f;
+    public float pushbackForce = 10f;
+
+    public bool pushToTheLeft = false;
+    public bool pushToTheRight = false;
 
     PlayerControls basePlayer;
 
+    private bool isInHurtArea = false;
+    private Collider2D collision;
+
     private void Awake()
     {
-        basePlayer = GetComponentInParent<PlayerControls>();
+        basePlayer = GetComponentInParent<PlayerControls>();        
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public void ToggleWeaponState(bool state)
     {
-        if (collision.tag == "Enemy")
+        isInHurtArea = state;
+        gameObject.SetActive(state);
+    }
+
+    private void Update()
+    {
+        if (isInHurtArea && collision != null)
         {
-            collision.gameObject.GetComponent<BaseEnemy>().ReceiveDamage(weaponDamage);
+            if (!GetComponentInParent<SpriteBase>().canDamage) return;
+            if (collision.tag == "Enemy")
+            {
+                var lookDirection = Vector3.zero;
+                if (pushToTheLeft && !pushToTheRight) lookDirection = Vector3.left;
+                if (pushToTheRight && !pushToTheLeft) lookDirection = Vector3.right;
+                collision.gameObject.GetComponent<BaseEnemy>().ReceiveDamage(GlobalGameManager.player.atkDamage, lookDirection, pushbackForce);
+            }
+            if (collision.tag == "Player")
+            {
+                collision.gameObject.GetComponent<PlayerControls>().ReceiveDamage(GetComponentInParent<SpriteBase>().atkDamage);
+            }
+            GetComponentInParent<SpriteBase>().canDamage = false;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        isInHurtArea = true;
+        this.collision = collision;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        isInHurtArea = false;
     }
 }

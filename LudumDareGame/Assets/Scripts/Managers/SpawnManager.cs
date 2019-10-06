@@ -10,16 +10,20 @@ public class SpawnManager : MonoBehaviour
     public int amountOfKillsNecessary;
     public int amountOfEnemiesKilled;
 
-    private float rightLimit;
-    private float leftLimit;
-    private float topLimit;
-    private float bottomLimit;
+    private float spawn1;
+    private float spawn2;
+    private float spawn3;
+    private float spawn4;
+    private float playerStartHeight;
 
     private LevelManager levelManager;
     private GameInitializer gameInitializer;
 
     private void Awake()
     {
+        if (GlobalGameManager.player == null) GlobalGameManager.player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
+        if (GlobalGameManager.uiManager == null) GlobalGameManager.uiManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>();
+
         SetSpawnLimits();
         GlobalEvents.OnWaveStart += StartSpawningEnemies;
         GlobalEvents.OnEnemyDeath += EnemyDeath;
@@ -35,28 +39,33 @@ public class SpawnManager : MonoBehaviour
         GlobalEvents.OnWaveStart -= StartSpawningEnemies;
     }
 
-
-
     private void SetSpawnLimits()
     {
-        rightLimit = spawnLimits[0].position.x;
-        leftLimit = spawnLimits[1].position.x;
-        topLimit = spawnLimits[2].position.y;
-        bottomLimit = spawnLimits[3].position.y;
+        spawn1 = spawnLimits[0].position.x;
+        spawn2 = spawnLimits[1].position.x;
+        spawn3 = spawnLimits[2].position.x;
+        spawn4 = spawnLimits[3].position.x;
+        playerStartHeight = GlobalGameManager.player.transform.position.y;
     }
 
     public Vector2 GetRandomSpawnTransform()
     {
         float randomValue = UnityEngine.Random.Range(0f, 1f);
-        // Right
-        if (randomValue < 0.5f)
+        if (randomValue < 0.25f)
         {
-            return new Vector2(rightLimit, UnityEngine.Random.Range(bottomLimit, topLimit));
+            return new Vector2(spawn1, playerStartHeight);
         }
-        // Left
+        else if (randomValue < 0.5f)
+        {
+            return new Vector2(spawn2, playerStartHeight);
+        }
+        else if (randomValue < 0.75f)
+        {
+            return new Vector2(spawn3, playerStartHeight);
+        }
         else
         {
-            return new Vector2(leftLimit, UnityEngine.Random.Range(bottomLimit, topLimit));
+            return new Vector2(spawn4, playerStartHeight);
         }
     }
 
@@ -100,7 +109,8 @@ public class SpawnManager : MonoBehaviour
 
     public int GetAmountOfEnemiesOfLevel()
     {
-        return levelManager.GetCurrentLevel() + 2;
+        //return levelManager.GetCurrentLevel() + 2;
+        return 1;
     }
 
     private GameObject GetEnemyPrefab(int currentLevel)

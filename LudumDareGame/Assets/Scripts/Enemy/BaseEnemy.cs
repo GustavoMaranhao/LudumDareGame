@@ -9,25 +9,38 @@ public class BaseEnemy : SpriteBase
     public float chanceToDropItems = 100f;
 
     private Transform playerTransform;
-    private bool canAttack;
-    private bool isAttacking;
+    [HideInInspector] public bool canStartAttack = false;
+    [HideInInspector] public bool isAttacking = false;
+    private bool hasDroppedItem = false;
 
     public List<GameObject> listOfItems;
 
     private void Update()
     {
-        if (canAct && !isAttacking)
+        if (canAct && !isAttacking && !bIsDead)
         {
             Act();
         }
 
-        spriteRenderer.flipX = (transform.position - GlobalGameManager.player.transform.position).x >= 0;
+        if (bIsPushBack)
+        {
+            transform.position = Vector2.Lerp(transform.position, perpDirection, pushbackSpeed * Time.fixedDeltaTime);
+        }
+
+        if (canAct && bIsDead && !hasDroppedItem)
+        {
+            EnemyDead();
+            hasDroppedItem = true;
+        }
+
+        spriteRenderer.flipX = !((transform.position - GlobalGameManager.player.transform.position).x >= 0);
     }
 
     public virtual void Act()
     {
-        if (canAttack)
+        if (canStartAttack)
         {
+            spriteAnimator.SetTrigger("Attack");
             if (isAttacking)
             {
                 return;
@@ -45,26 +58,42 @@ public class BaseEnemy : SpriteBase
         isAttacking = true;
         while (true)
         {
-            Attack();
             yield return new WaitForSeconds(atkSpeed);
+            spriteAnimator.SetTrigger("Attack");
+            Attack();
+            if (!checkIfPlayerClose()) break;
         }
-
+        canStartAttack = false;
     }
 
     internal virtual void Attack()
     {
-        GlobalGameManager.player.ReceiveDamage(atkDamage);
+        if (bIsDead) return;
+
+        if (!spriteRenderer.flipX)
+            baseWeaponObjLeft.ToggleWeaponState(true);
+        else
+            baseWeaponObjRight.ToggleWeaponState(true);
+    }
+
+    internal bool checkIfPlayerClose()
+    {
+        return Vector3.Magnitude(transform.position - GlobalGameManager.player.transform.position) <= minDistanceToPlayer;
     }
 
     private void MoveTowardsPlayer()
     {
-        if (Vector3.Magnitude(transform.position - GlobalGameManager.player.transform.position) <= minDistanceToPlayer) canAttack = true;
+        if (spriteAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) return;        
+        //if (Vector3.Magnitude(transform.position - GlobalGameManager.player.transform.position) <= minDistanceToPlayer) canAttack = true;
+        canStartAttack = checkIfPlayerClose();
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, GlobalGameManager.player.transform.position, step);
+        spriteAnimator.SetBool("bIsWalking", !canStartAttack);
     }
 
     internal virtual void EnemyDead()
     {
+        GetComponent<BoxCollider2D>().enabled = false;
         var random = Random.Range(0, 100);
         if (random <= chanceToDropItems)
             DropItem();
@@ -76,10 +105,10 @@ public class BaseEnemy : SpriteBase
     {
         if (listOfItems.Count > 0)
         {
-
             int index = Random.Range(0, listOfItems.Count);
-            GameObject item = Instantiate(listOfItems[index], this.transform.position, Quaternion.identity);
-            item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, -1);
+            GameObject item = Instantiate(listOfItems[index], this.transform.localPosition, Quaternion.identity);
+            //item.GetComponent<ItemPickup>().SetInitialPosition(this.transform.position);
+            item.transform.position = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y, -1);
         }
 
     }
@@ -94,9 +123,14 @@ public class BaseEnemy : SpriteBase
         canAct = false;
     }
 
-    public void TakeDamage(int damage)
+    public void ReceiveDamage(float amount, Vector3 pushbackDirection = new Vector3(), float pushbackForce = 0f)
     {
-        base.ReceiveDamage(damage);
-        if (health <= 0) EnemyDead();
+        spriteAnimator.SetTrigger("GoToIdle");
+        spriteAnimator.SetBool("bIsWalking", false);
+
+        baseWeaponObjLeft.ToggleWeaponState(false);
+        baseWeaponObjRight.ToggleWeaponState(false);
+
+        base.ReceiveDamage(amount, pushbackDirection, pushbackForce);
     }
 }

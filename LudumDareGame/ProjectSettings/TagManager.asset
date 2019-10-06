@@ -5,14 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameManager
-  - WEAPON_DAMAGE_AREA
-  - ITEM_COLLECTION_AREA
-  - POWER_DOWN
-  - POWER_UP
-  - CASTLE
-  - DEATH
   - UnblinkingSprite
   - Enemy
+  - Item
+  - EndWall
+  - StartWall
+  - GameOverPanel
+  - GameOverText
   layers:
   - Default
   - TransparentFX
@@ -22,8 +21,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - WeaponHurtZone
+  - Playables
   - 
   - 
   - 

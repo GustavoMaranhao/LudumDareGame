@@ -1,52 +1,135 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public enum ItemType
+{
+    Sword,
+    Armor,
+    Soul
+}
 
 public class PlayerControls : SpriteBase
 {
-    private GameObject baseWeaponObjLeft;
-    private GameObject baseWeaponObjRight;
+    [HideInInspector]
+    public bool isPlayerMoving = false;
+
+    private bool hasSword = false;
+    [HideInInspector]
+    public bool bIsAttacking = false;
+
+    public float dashSpeed = 5f;
+    [HideInInspector]
+    public bool bShouldDash = false;
 
     void Start()
     {
         base.Start();
 
-        baseWeaponObjLeft = transform.Find("LeftAttackTrigger").gameObject;
-        baseWeaponObjRight = transform.Find("RightAttackTrigger").gameObject;
+        spriteAnimator.SetBool("bIsGhost", true);
+        spriteAnimator.SetTrigger("GoToIdle");
     }
 
     void FixedUpdate()
     {
         base.FixedUpdate();
 
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        boxCollider.transform.Translate(transform.TransformDirection(input * speed * Time.deltaTime));
+        //Only move if not attacking
+        if (!spriteAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !bShouldDash)
+        {
+            if (Input.GetAxisRaw("Horizontal") != 0)
+            {
+                Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+                boxCollider.transform.Translate(transform.TransformDirection(input * speed * Time.deltaTime));
 
-        if(Input.GetAxisRaw("Horizontal") != 0)
-            GetComponent<SpriteRenderer>().flipX = Input.GetAxisRaw("Horizontal") < 0;
+                isPlayerMoving = true;
 
-        if (canAct && Input.GetButtonUp("Fire1"))
+                GetComponent<SpriteRenderer>().flipX = Input.GetAxisRaw("Horizontal") < 0;
+
+                if (!bIsAttacking) spriteAnimator.SetBool("bIsWalking", true);
+            }
+            else
+            {
+                isPlayerMoving = false;
+                spriteAnimator.SetBool("bIsWalking", false);
+            }
+        }
+        else
+        {
+            isPlayerMoving = false;
+            spriteAnimator.SetBool("bIsWalking", false);
+        }
+
+        if (!bIsAttacking && Input.GetButtonUp("Fire1"))
         {
             StartCoroutine(PlayerAttack());
         }
 
-        IEnumerator PlayerAttack()
+        if(!bIsAttacking && Input.GetButtonUp("Fire3"))
         {
-            spriteAnimator.SetBool("StartAttackAnim", true);
-
-            if (!spriteRenderer.flipX)
-                baseWeaponObjLeft.SetActive(true);
-            else
-                baseWeaponObjRight.SetActive(true);
-
-            //yield return new WaitForSeconds(atkSpeed);
-
-            yield return new WaitForSeconds(0.5f);
-            spriteAnimator.SetBool("StartAttackAnim", false);
-
-            baseWeaponObjLeft.SetActive(false);
-            baseWeaponObjRight.SetActive(false);
+            bShouldDash = true;
+            spriteAnimator.SetTrigger("Dash");
+        }
+        
+        if (bShouldDash)
+        {
+            var pushbackDir = Vector3.zero;
+            if (spriteRenderer.flipX) pushbackDir = Vector3.left;
+            else pushbackDir = Vector3.right;
+            pushbackDir *= dashSpeed;
+            transform.position = Vector2.Lerp(transform.position, transform.position + pushbackDir, dashSpeed * Time.fixedDeltaTime);
         }
 
+        IEnumerator PlayerAttack()
+        {
+            bIsAttacking = true;
+
+            spriteAnimator.SetBool("bIsWalking", false);
+            if(!hasSword) spriteAnimator.SetTrigger("Attack");
+            else spriteAnimator.SetTrigger("AttackWithSword");
+
+            yield return new WaitForSeconds(0.3f);
+
+            if (spriteRenderer.flipX)
+                baseWeaponObjLeft.ToggleWeaponState(true);
+            else
+                baseWeaponObjRight.ToggleWeaponState(true);
+
+            yield return new WaitForSeconds(atkSpeed);
+        }
+    }
+
+    public void ItemCollected(ItemType item)
+    {
+        switch (item)
+        {
+            case ItemType.Sword:
+                hasSword = true;
+                atkSpeed = 0.6f;
+                atkDamage = 10;
+                break;
+            case ItemType.Armor:
+                defenseReduction = 2f;
+                spriteAnimator.SetBool("bHasArmor", true);
+                spriteAnimator.SetTrigger("GoToIdle");
+                break;
+            case ItemType.Soul:
+                health += 10;
+                UpdateHealthBar();
+                spriteAnimator.SetBool("bIsGhost", false);
+                spriteAnimator.SetTrigger("GoToIdle");
+                break;
+        }
+    }
+
+    public void ReceiveDamage(float amount, Vector3 pushbackDirection = new Vector3(), float pushbackForce = 0f)
+    {
+        base.ReceiveDamage(amount, pushbackDirection, pushbackForce);
+
+        if (health <= 0)
+        {
+            GlobalGameManager.uiManager.toggleGameOverPanel();
+        }
     }
 }

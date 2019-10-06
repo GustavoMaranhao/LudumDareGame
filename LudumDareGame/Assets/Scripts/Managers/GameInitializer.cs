@@ -8,6 +8,7 @@ public class GameInitializer : MonoBehaviour
     private void Awake()
     {
         levelManager = FindObjectOfType<LevelManager>();
+        FloatingTextController.Initialize();
     }
 
     void Start()

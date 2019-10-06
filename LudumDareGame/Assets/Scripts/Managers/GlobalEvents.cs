@@ -4,7 +4,7 @@ using UnityEngine;
 public static class GlobalEvents
 {
     public static event EventHandler OnPlayerHitWall = delegate { };
-    public static void PlayerHitWall(object sender, EventArgs args)
+    public static void PlayerHitWall(object sender, WallEventArgs args)
     {
         OnPlayerHitWall(sender, args);
     }
@@ -25,5 +25,15 @@ public static class GlobalEvents
     public static void EnemyDeath(object sender, EventArgs args)
     {
         OnEnemyDeath(sender, args);
+    }
+}
+
+public class WallEventArgs : EventArgs
+{
+    public string tag;
+
+    public WallEventArgs(string tag)
+    {
+        this.tag = tag;
     }
 }

@@ -5,23 +5,38 @@ using UnityEngine;
 public class SpriteBase : MonoBehaviour
 {
     public int speed = 20;
-    public int atkDamage = 5;
-    public int atkSpeed = 5;
+    public float atkDamage = 5f;
+    public float atkSpeed = 5f;
     public float health = 20f;
+    public float defenseReduction = 0f;
 
     public int invulnFlashes = 5;
     public float startingFlashCD = 0.5f;
+
+    public float pushbackTimer = 0.2f;
 
     protected BoxCollider2D boxCollider;
     protected SpriteRenderer spriteRenderer;
     protected Animator spriteAnimator;
 
-    protected bool canAct = true;
+    protected Vector2 perpDirection;
+    protected float pushbackSpeed;
+    protected bool bIsPushBack = false;
+
+    [HideInInspector]
+    public bool canAct = true;
+    public bool canDamage = true;
+
     protected bool bIsDead = false;
 
     private GameObject healthBar;
     private GameObject healthBarValue;
     private float fullHealthLength;
+
+    [HideInInspector]
+    public WeaponTriggers baseWeaponObjLeft;
+    [HideInInspector]
+    public WeaponTriggers baseWeaponObjRight;
 
     public void Start()
     {
@@ -34,31 +49,47 @@ public class SpriteBase : MonoBehaviour
         fullHealthLength = healthBarValue.transform.lossyScale.x;
 
         GetComponent<Rigidbody2D>().freezeRotation = true;
+
+        baseWeaponObjLeft = transform.Find("LeftAttackTrigger").gameObject.GetComponent<WeaponTriggers>();
+        baseWeaponObjRight = transform.Find("RightAttackTrigger").gameObject.GetComponent<WeaponTriggers>();
     }
 
     public void FixedUpdate()
     {
-        if (bIsDead && canAct)
+        if (bIsDead && canAct && gameObject != GlobalGameManager.player.gameObject)
+        {
             Destroy(gameObject, 0.5f);
-
-        if (Input.GetKeyUp("v"))
-            ReceiveDamage(5);
+        }
     }
 
-    public void ReceiveDamage(float amount)
+    public void ReceiveDamage(float amount, Vector3 pushbackDirection = new Vector3(), float pushbackForce = 0f)
     {
-        health -= amount;
+        if (!canDamage) return;
+
+        var newAmount = amount - defenseReduction;
+
+        if(!bIsDead) FloatingTextController.CreateFloatingText(newAmount.ToString(), transform);
+
+        if(pushbackForce > 0) SpritePushback(pushbackDirection, pushbackForce);
+
+        health -= newAmount;
         if (health <= 0)
         {
+            spriteAnimator.SetBool("bIsWalking", false);
             health = 0;
             bIsDead = true;
         }
 
-        //ScaleAround(healthBarValue, new Vector3(-healthBar.transform.position.x/2, 3.9f/2,0), new Vector3(health / fullHealthLength, 1, 1));
-        healthBarValue.transform.localScale = new Vector3(health / fullHealthLength, 1, 1);
+        UpdateHealthBar();
 
         SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
         StartCoroutine(SpriteFlash(sprites, invulnFlashes, startingFlashCD));
+    }
+
+    public void UpdateHealthBar(bool updateBackground = false)
+    {
+        //ScaleAround(healthBarValue, new Vector3(-healthBar.transform.position.x/2, 3.9f/2,0), new Vector3(health / fullHealthLength, 1, 1));
+        healthBarValue.transform.localScale = new Vector3(health / fullHealthLength, 1, 1);
     }
 
     public void ScaleAround(GameObject target, Vector3 pivot, Vector3 newScale)
@@ -108,5 +139,22 @@ public class SpriteBase : MonoBehaviour
         }
 
         canAct = true;
+    }
+
+    protected void SpritePushback(Vector3 pushbackDirection, float pushBackForce)
+    {
+        bIsPushBack = true;
+        //perpDirection = (Vector2)(boxCollider.transform.position - pushbackDirection) * pushBackForce;
+        perpDirection = pushbackDirection * pushBackForce;
+        perpDirection += (Vector2)boxCollider.transform.position;
+        pushbackSpeed = pushBackForce;
+
+        StartCoroutine(SpriteSlideBack());
+    }
+
+    IEnumerator SpriteSlideBack()
+    {
+        yield return new WaitForSeconds(pushbackTimer);
+        if (bIsPushBack) bIsPushBack = false;
     }
 }
