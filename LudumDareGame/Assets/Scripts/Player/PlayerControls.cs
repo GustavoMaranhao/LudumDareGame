@@ -7,15 +7,16 @@ public enum ItemType
 {
     Sword,
     Armor,
-    Soul
+    Soul, 
+    Potion
 }
 
 public class PlayerControls : SpriteBase
 {
     [HideInInspector]
     public bool isPlayerMoving = false;
-
-    private bool hasSword = false;
+    [HideInInspector]
+    public bool hasSword = false;
     [HideInInspector]
     public bool bIsAttacking = false;
 
@@ -23,9 +24,14 @@ public class PlayerControls : SpriteBase
     [HideInInspector]
     public bool bShouldDash = false;
 
+    public AudioSource itemPickUpSound;
+    public AudioSource dashSound;
+
     void Start()
     {
         base.Start();
+
+        UpdateHealthBar();
 
         spriteAnimator.SetBool("bIsGhost", true);
         spriteAnimator.SetTrigger("GoToIdle");
@@ -68,6 +74,8 @@ public class PlayerControls : SpriteBase
 
         if(!bIsAttacking && Input.GetButtonUp("Fire3"))
         {
+            if (dashSound != null) dashSound.Play();
+
             bShouldDash = true;
             spriteAnimator.SetTrigger("Dash");
         }
@@ -102,6 +110,8 @@ public class PlayerControls : SpriteBase
 
     public void ItemCollected(ItemType item)
     {
+        if (itemPickUpSound != null) itemPickUpSound.Play();
+
         switch (item)
         {
             case ItemType.Sword:
@@ -115,10 +125,15 @@ public class PlayerControls : SpriteBase
                 spriteAnimator.SetTrigger("GoToIdle");
                 break;
             case ItemType.Soul:
-                health += 10;
+                health += 70;
                 UpdateHealthBar();
                 spriteAnimator.SetBool("bIsGhost", false);
                 spriteAnimator.SetTrigger("GoToIdle");
+                break;
+            case ItemType.Potion:
+                health += 10;
+                UpdateHealthBar();
+                FloatingTextController.CreateFloatingText("+10", transform);
                 break;
         }
     }

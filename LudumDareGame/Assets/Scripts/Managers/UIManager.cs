@@ -65,6 +65,6 @@ public class UIManager : MonoBehaviour
 
     public void SetScoreText(string text)
     {
-        victoryScoreText.text = text;
+        victoryScoreText.text = "Time to beat: " + text + "s";
     }
 }

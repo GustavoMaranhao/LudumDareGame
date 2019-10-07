@@ -258,3 +258,14 @@ C:\Temp\LudumDareGame\LudumDareGame\obj\Debug\Assembly-CSharp.csproj.CoreCompile
 C:\Temp\LudumDareGame\LudumDareGame\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Temp\LudumDareGame\LudumDareGame\obj\Debug\Assembly-CSharp.dll
 C:\Temp\LudumDareGame\LudumDareGame\obj\Debug\Assembly-CSharp.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.Timeline.Editor.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.VSCode.Editor.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\UnityEngine.UI.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.Timeline.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.Rider.Editor.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.2D.Sprite.Editor.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.2D.Tilemap.Editor.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\Unity.TextMeshPro.pdb
+C:\Temp\LudumDareGame\LudumDareGame\Temp\bin\Debug\UnityEditor.UI.pdb

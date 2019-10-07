@@ -9,6 +9,9 @@ public class ButtonManager : MonoBehaviour
 
     public GameObject CreditsMenuPanel;
     public GameObject MainMenuPanel;
+    public GameObject storyPanelRoot;
+
+    public AudioSource buttonSound;
 
     private void Start()
     {
@@ -30,25 +33,36 @@ public class ButtonManager : MonoBehaviour
         EnableItem(args.item);
     }
 
+    public void OnStartStory()
+    {
+        if (buttonSound != null) buttonSound.Play();
+        MainMenuPanel.SetActive(false);
+        storyPanelRoot.SetActive(true);
+    }
+
     public void OnTryAgainClick()
     {
+        if (buttonSound != null) buttonSound.Play();
         Time.timeScale = 1;
         SceneManager.LoadScene("LudumDareGame", LoadSceneMode.Single);
     }
 
     public void OnQuitClick()
     {
+        if(buttonSound != null) buttonSound.Play();
         Application.Quit();
     }
 
     public void OnCreditsClickButton()
     {
+        if (buttonSound != null) buttonSound.Play();
         MainMenuPanel.SetActive(false);
         CreditsMenuPanel.SetActive(true);
     }
 
     public void OnCreditsReturnClick()
     {
+        if (buttonSound != null) buttonSound.Play();
         MainMenuPanel.SetActive(true);
         CreditsMenuPanel.SetActive(false);
     }

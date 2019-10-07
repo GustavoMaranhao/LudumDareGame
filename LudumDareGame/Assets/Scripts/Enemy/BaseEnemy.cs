@@ -98,7 +98,10 @@ public class BaseEnemy : SpriteBase
         if (random <= chanceToDropItems)
             DropItem();
 
-        GlobalEvents.EnemyDeath(this, new EnemyDeathArgs("CommonEnemy"));
+        if(!gameObject.name.Contains("Demon"))
+            GlobalEvents.EnemyDeath(this, new EnemyDeathArgs("CommonEnemy"));
+        else
+            GlobalEvents.EnemyDeath(this, new EnemyDeathArgs("FinalBoss"));
     }
 
     internal virtual void DropItem()

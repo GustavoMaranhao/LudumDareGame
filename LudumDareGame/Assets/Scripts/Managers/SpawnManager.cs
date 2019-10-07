@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
 
     public int amountOfKillsNecessary;
     public int amountOfEnemiesKilled;
+    public int amountOfKillsRequiredForBoss;
 
     private float spawn1;
     private float spawn2;
@@ -18,9 +19,12 @@ public class SpawnManager : MonoBehaviour
     private float playerStartHeight;
 
     private bool bSpawnBoss = true;
+    private bool bSpawnFinalBoss = false;
+    private bool bShouldStopSpawning = false;
 
     private LevelManager levelManager;
     private GameInitializer gameInitializer;
+    private EndGameManager endGameManager;
 
     private void Awake()
     {
@@ -33,6 +37,7 @@ public class SpawnManager : MonoBehaviour
 
         levelManager = GetComponent<LevelManager>();
         gameInitializer = GetComponent<GameInitializer>();
+        endGameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EndGameManager>();
     }
 
 
@@ -77,16 +82,28 @@ public class SpawnManager : MonoBehaviour
 
     public void StartSpawningEnemies(object sender, System.EventArgs e)
     {
-        amountOfEnemiesKilled = 0;
+        if (bShouldStopSpawning) return;
+        if (bSpawnFinalBoss)
+        {
+            SpawnBossEnemy(true);
+            bShouldStopSpawning = true;
+        }
+
         if (bSpawnBoss)
             SpawnBossEnemy();
         else
             StartCoroutine(StartSpawningWave());
     }
 
-    private void SpawnBossEnemy()
+    private void SpawnBossEnemy(bool bFinalBoss = false)
     {
-        GameObject prefab = listOfBosses[0];
+        GameObject prefab;
+        if (!bFinalBoss)
+            prefab = listOfBosses[0];
+        else
+        {
+            prefab = listOfBosses[1];
+        }
         var locationToSpawn = GetRandomSpawnTransform(1);
         locationToSpawn.y += 10;
         SpawnEnemy(prefab, locationToSpawn);
@@ -173,10 +190,20 @@ public class SpawnManager : MonoBehaviour
             bSpawnBoss = false;
         }
 
+        if (enemyDeathArgs.tag == "FinalBoss")
+        {
+            endGameManager.gameVictory = true;
+            GlobalGameManager.uiManager.toggleGameOverPanel();
+        }
+
         amountOfEnemiesKilled++;
-        if (amountOfEnemiesKilled == GetAmountOfEnemiesOfLevel())
+        if (amountOfEnemiesKilled >= GetAmountOfEnemiesOfLevel())
         {
             gameInitializer.EndWave();
+        }
+        if(amountOfEnemiesKilled >= amountOfKillsRequiredForBoss)
+        {
+            bSpawnFinalBoss = true;
         }
     }
 

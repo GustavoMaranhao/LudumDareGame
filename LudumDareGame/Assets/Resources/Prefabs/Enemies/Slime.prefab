@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  atkDamage: 3
+  atkDamage: 5
   atkSpeed: 0.5
   health: 20
   defenseReduction: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
   baseWeaponObjRight: {fileID: 0}
   enemyLevel: 0
   minDistanceToPlayer: 8
-  chanceToDropItems: 100
+  chanceToDropItems: 70
   canStartAttack: 0
   isAttacking: 0
   listOfItems:

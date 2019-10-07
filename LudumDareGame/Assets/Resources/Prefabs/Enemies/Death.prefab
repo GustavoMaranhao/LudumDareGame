@@ -712,4 +712,5 @@ MonoBehaviour:
   scytheInvincibleDist: 25
   listOfItems:
   - {fileID: 8751897651616800210, guid: 78310e87d35541449bf53a590d3df286, type: 3}
+  messageToActivate: {fileID: 0}
   bIsInvincible: 1

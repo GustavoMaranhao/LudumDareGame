@@ -38,6 +38,8 @@ public class SpriteBase : MonoBehaviour
     [HideInInspector]
     public WeaponTriggers baseWeaponObjRight;
 
+    public AudioSource damageSound;
+
     public void Start()
     {
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -65,6 +67,8 @@ public class SpriteBase : MonoBehaviour
     public void ReceiveDamage(float amount, Vector3 pushbackDirection = new Vector3(), float pushbackForce = 0f)
     {
         if (!canDamage) return;
+
+        if (damageSound != null) damageSound.Play();
 
         var newAmount = amount - defenseReduction;
         if (newAmount < 0) newAmount = 0;

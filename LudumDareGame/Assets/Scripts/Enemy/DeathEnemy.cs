@@ -9,10 +9,13 @@ public class DeathEnemy : SpriteBase
 
     public List<GameObject> listOfItems;
 
+    private GameObject messageToActivate;
+
     [HideInInspector]
     public bool bIsInvincible = true;
 
     private bool hasDroppedItem = false;
+    private bool bDeathEventNotSent = false;
 
     public void Start()
     {
@@ -23,6 +26,9 @@ public class DeathEnemy : SpriteBase
         healthBar = transform.Find("HealthBar").gameObject;
         healthBarValue = healthBar.transform.Find("HealthBarValue").gameObject;
         fullHealthLength = healthBarValue.transform.lossyScale.x;
+
+        messageToActivate = GameObject.FindGameObjectWithTag("QuickMessagePanel");
+        messageToActivate.SetActive(false);
     }
 
     public void Update()
@@ -40,8 +46,11 @@ public class DeathEnemy : SpriteBase
             bIsInvincible = false;
         }
 
-        if (health <= 0)
+        if (health <= 0 && !bDeathEventNotSent)
+        {
+            bDeathEventNotSent = true;
             GlobalEvents.EnemyDeath(this, new EnemyDeathArgs("Boss"));
+        }
 
         if (canAct && bIsDead && !hasDroppedItem)
         {

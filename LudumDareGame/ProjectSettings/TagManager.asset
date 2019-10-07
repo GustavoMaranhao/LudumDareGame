@@ -13,6 +13,7 @@ TagManager:
   - GameOverPanel
   - GameOverText
   - EnemyAttack
+  - QuickMessagePanel
   layers:
   - Default
   - TransparentFX

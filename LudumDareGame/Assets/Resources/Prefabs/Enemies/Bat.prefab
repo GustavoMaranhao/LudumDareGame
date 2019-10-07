@@ -352,7 +352,7 @@ MonoBehaviour:
   baseWeaponObjRight: {fileID: 0}
   enemyLevel: 0
   minDistanceToPlayer: 6
-  chanceToDropItems: 100
+  chanceToDropItems: 40
   canStartAttack: 0
   isAttacking: 0
   listOfItems:

@@ -251,7 +251,9 @@ MonoBehaviour:
   listOfItems:
   - {fileID: 3326353583164930389, guid: 517c4673011c41c4a8749bfdd52c4ed0, type: 3}
   - {fileID: 3326353583164930389, guid: 9770a5cea5cd9854d8cd88c464bec2ae, type: 3}
+  - {fileID: 3326353583164930389, guid: baedb9c9a3a01a244a6084e3eda0fec3, type: 3}
   chestDisappearTime: 5
+  chestOpenSound: {fileID: 0}
 --- !u!95 &1168961096
 Animator:
   serializedVersion: 3

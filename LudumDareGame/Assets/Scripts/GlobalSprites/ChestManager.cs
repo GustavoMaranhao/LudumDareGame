@@ -10,9 +10,13 @@ public class ChestManager : MonoBehaviour
     private bool bIsPlayerNear = false;
     private Animator spriteAnimator;
 
+    private AudioSource chestOpenSound;
+
     private void Start()
     {
         spriteAnimator = GetComponent<Animator>();
+
+        chestOpenSound = GameObject.Find("chestSound").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -21,6 +25,8 @@ public class ChestManager : MonoBehaviour
         {
             if (Input.GetButtonUp("Fire2"))
             {
+                if (chestOpenSound != null) chestOpenSound.Play();
+
                 spriteAnimator.SetTrigger("OpenChest");
                 DropItem();
                 StartCoroutine(ChestDisappear());
