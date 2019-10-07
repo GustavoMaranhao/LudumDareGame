@@ -41,6 +41,8 @@ public class PlayerControls : SpriteBase
     {
         base.FixedUpdate();
 
+        canAct = true;
+
         //Only move if not attacking
         if (!spriteAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !bShouldDash)
         {

@@ -111,7 +111,11 @@ public class SpawnManager : MonoBehaviour
 
     private float GetLevelSpawnTimer(int currentLevel)
     {
-        if (currentLevel < 5)
+        if (currentLevel == 2)
+        {
+            return 10;
+        }
+        else if (currentLevel < 5)
         {
             return 5;
         }
@@ -184,6 +188,8 @@ public class SpawnManager : MonoBehaviour
     private void EnemyDeath(object sender, System.EventArgs e)
     {
         EnemyDeathArgs enemyDeathArgs = (EnemyDeathArgs) e;
+
+
 
         if(enemyDeathArgs.tag == "Boss")
         {

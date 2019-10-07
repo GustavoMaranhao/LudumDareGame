@@ -66,7 +66,7 @@ public class SpriteBase : MonoBehaviour
 
     public void ReceiveDamage(float amount, Vector3 pushbackDirection = new Vector3(), float pushbackForce = 0f)
     {
-        if (!canDamage) return;
+        //if (!canDamage) return;
 
         if (damageSound != null) damageSound.Play();
 
