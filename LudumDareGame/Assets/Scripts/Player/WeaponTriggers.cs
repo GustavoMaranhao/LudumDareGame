@@ -32,6 +32,7 @@ public class WeaponTriggers : MonoBehaviour
     {
         if (isInHurtArea && collision != null)
         {
+            Debug.Log(gameObject.GetComponentInParent<Transform>().tag + " hitting " + collision.tag);
             if (!GetComponentInParent<SpriteBase>().canDamage) return;
             if (collision.tag == "Enemy" && transform.tag != "EnemyAttack")
             {

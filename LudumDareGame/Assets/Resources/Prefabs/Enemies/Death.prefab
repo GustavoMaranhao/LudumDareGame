@@ -176,6 +176,7 @@ MonoBehaviour:
   canDamage: 1
   baseWeaponObjLeft: {fileID: 0}
   baseWeaponObjRight: {fileID: 0}
+  damageSound: {fileID: 0}
   enemyLevel: 0
   minDistanceToPlayer: 10
   chanceToDropItems: 100
@@ -183,7 +184,7 @@ MonoBehaviour:
   isAttacking: 0
   listOfItems: []
   brainTick: 1
-  minDistanceToActivate: 40
+  minDistanceToActivate: 55
   timeActive: 2
 --- !u!1 &7203072697993653730
 GameObject:
@@ -439,6 +440,8 @@ MonoBehaviour:
   pushbackForce: 10
   pushToTheLeft: 1
   pushToTheRight: 0
+  weaponSound: {fileID: 0}
+  punchSound: {fileID: 0}
 --- !u!1 &7203072698494726403
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +535,8 @@ MonoBehaviour:
   pushbackForce: 10
   pushToTheLeft: 0
   pushToTheRight: 1
+  weaponSound: {fileID: 0}
+  punchSound: {fileID: 0}
 --- !u!1 &7203072698604907859
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +655,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.10305023, y: 0.041217804}
+  m_Offset: {x: 0.3338896, y: 0.041217804}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -661,7 +666,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.0150814, y: 8.32333}
+  m_Size: {x: 5.141202, y: 8.32333}
   m_EdgeRadius: 0
 --- !u!50 &7203072698604907857
 Rigidbody2D:
@@ -708,9 +713,9 @@ MonoBehaviour:
   canDamage: 1
   baseWeaponObjLeft: {fileID: 0}
   baseWeaponObjRight: {fileID: 0}
+  damageSound: {fileID: 0}
   scytheGameObject: {fileID: 5864717911427264749}
-  scytheInvincibleDist: 25
+  scytheInvincibleDist: 27
   listOfItems:
   - {fileID: 8751897651616800210, guid: 78310e87d35541449bf53a590d3df286, type: 3}
-  messageToActivate: {fileID: 0}
   bIsInvincible: 1
