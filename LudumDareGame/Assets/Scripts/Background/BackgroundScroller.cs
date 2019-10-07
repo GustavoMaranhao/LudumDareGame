@@ -26,12 +26,26 @@ public class BackgroundScroller : MonoBehaviour
 
         GlobalEvents.OnPlayerHitWall += PlayerReachedWall;
         GlobalEvents.OnPlayerLeaveWall += PlayerLeftWall;
+        GlobalEvents.OnDeathTouched += DeathTouched;
+        GlobalEvents.OnDeathUnTouched += DeathUntouched;
     }
 
     private void OnDestroy()
     {
         GlobalEvents.OnPlayerHitWall -= PlayerReachedWall;
         GlobalEvents.OnPlayerLeaveWall -= PlayerLeftWall;
+        GlobalEvents.OnDeathTouched -= DeathTouched;
+        GlobalEvents.OnDeathUnTouched -= DeathUntouched;
+    }
+
+    void DeathTouched(object sender, System.EventArgs e)
+    {
+        isPlayerTouchingWall = true;
+    }
+
+    void DeathUntouched(object sender, System.EventArgs e)
+    {
+        isPlayerTouchingWall = false;
     }
 
     void PlayerReachedWall(object sender, System.EventArgs e)

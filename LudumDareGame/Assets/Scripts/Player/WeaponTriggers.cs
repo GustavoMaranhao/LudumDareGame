@@ -30,12 +30,20 @@ public class WeaponTriggers : MonoBehaviour
         if (isInHurtArea && collision != null)
         {
             if (!GetComponentInParent<SpriteBase>().canDamage) return;
-            if (collision.tag == "Enemy")
+            if (collision.tag == "Enemy" && transform.tag != "EnemyAttack")
             {
-                var lookDirection = Vector3.zero;
-                if (pushToTheLeft && !pushToTheRight) lookDirection = Vector3.left;
-                if (pushToTheRight && !pushToTheLeft) lookDirection = Vector3.right;
-                collision.gameObject.GetComponent<BaseEnemy>().ReceiveDamage(GlobalGameManager.player.atkDamage, lookDirection, pushbackForce);
+                if (collision.GetComponent<DeathEnemy>() != null)
+                {
+                    if(!collision.GetComponent<DeathEnemy>().bIsInvincible)
+                        collision.gameObject.GetComponent<DeathEnemy>().ReceiveDamage(GlobalGameManager.player.atkDamage);
+                }
+                else
+                {
+                    var lookDirection = Vector3.zero;
+                    if (pushToTheLeft && !pushToTheRight) lookDirection = Vector3.left;
+                    if (pushToTheRight && !pushToTheLeft) lookDirection = Vector3.right;
+                    collision.gameObject.GetComponent<BaseEnemy>().ReceiveDamage(GlobalGameManager.player.atkDamage, lookDirection, pushbackForce);
+                }
             }
             if (collision.tag == "Player")
             {

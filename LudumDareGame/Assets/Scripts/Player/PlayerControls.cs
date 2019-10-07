@@ -129,6 +129,7 @@ public class PlayerControls : SpriteBase
 
         if (health <= 0)
         {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<EndGameManager>().gameOver = true;
             GlobalGameManager.uiManager.toggleGameOverPanel();
         }
     }

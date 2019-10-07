@@ -12,6 +12,7 @@ TagManager:
   - StartWall
   - GameOverPanel
   - GameOverText
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - 
   - WeaponHurtZone
   - Playables
-  - 
-  - 
+  - Boss
+  - Player
   - 
   - 
   - 

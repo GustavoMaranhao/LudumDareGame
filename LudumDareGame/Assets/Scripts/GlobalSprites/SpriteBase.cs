@@ -29,9 +29,9 @@ public class SpriteBase : MonoBehaviour
 
     protected bool bIsDead = false;
 
-    private GameObject healthBar;
-    private GameObject healthBarValue;
-    private float fullHealthLength;
+    protected GameObject healthBar;
+    protected GameObject healthBarValue;
+    protected float fullHealthLength;
 
     [HideInInspector]
     public WeaponTriggers baseWeaponObjLeft;
@@ -67,6 +67,7 @@ public class SpriteBase : MonoBehaviour
         if (!canDamage) return;
 
         var newAmount = amount - defenseReduction;
+        if (newAmount < 0) newAmount = 0;
 
         if(!bIsDead) FloatingTextController.CreateFloatingText(newAmount.ToString(), transform);
 

@@ -30,6 +30,7 @@ public class ItemPickup : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
+            GlobalEvents.ItemCollected(this, new ItemCollectedEventArgs(item));
             GlobalGameManager.player.ItemCollected(item);
             Destroy(gameObject);
         }

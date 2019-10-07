@@ -41,6 +41,15 @@ public class AttackResetBehavior : StateMachineBehaviour
             enemyControls.baseWeaponObjRight.ToggleWeaponState(false);
         }
 
+        var scytheControls = animator.GetComponent<ScytheEnemy>();
+        if (scytheControls)
+        {
+            scytheControls.canDamage = true;
+            scytheControls.isAttacking = false;
+            scytheControls.baseWeaponObjLeft.ToggleWeaponState(false);
+            scytheControls.baseWeaponObjRight.ToggleWeaponState(false);
+        }
+
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("GoToIdle");
     }

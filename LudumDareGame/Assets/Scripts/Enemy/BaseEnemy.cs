@@ -15,7 +15,7 @@ public class BaseEnemy : SpriteBase
 
     public List<GameObject> listOfItems;
 
-    private void Update()
+    protected void Update()
     {
         if (canAct && !isAttacking && !bIsDead)
         {
@@ -98,7 +98,7 @@ public class BaseEnemy : SpriteBase
         if (random <= chanceToDropItems)
             DropItem();
 
-        GlobalEvents.EnemyDeath(this, null);
+        GlobalEvents.EnemyDeath(this, new EnemyDeathArgs("CommonEnemy"));
     }
 
     internal virtual void DropItem()
@@ -108,7 +108,7 @@ public class BaseEnemy : SpriteBase
             int index = Random.Range(0, listOfItems.Count);
             GameObject item = Instantiate(listOfItems[index], this.transform.localPosition, Quaternion.identity);
             //item.GetComponent<ItemPickup>().SetInitialPosition(this.transform.position);
-            item.transform.position = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y, -1);
+            item.transform.position = new Vector3(item.transform.localPosition.x, GlobalGameManager.player.transform.position.y - GlobalGameManager.player.GetComponent<SpriteRenderer>().size.y / 2, -1);
         }
 
     }

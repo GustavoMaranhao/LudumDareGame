@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public List<GameObject> listOfEnemies;
+    public List<GameObject> listOfBosses;
     public List<Transform> spawnLimits;
 
     public int amountOfKillsNecessary;
@@ -15,6 +16,8 @@ public class SpawnManager : MonoBehaviour
     private float spawn3;
     private float spawn4;
     private float playerStartHeight;
+
+    private bool bSpawnBoss = true;
 
     private LevelManager levelManager;
     private GameInitializer gameInitializer;
@@ -48,9 +51,12 @@ public class SpawnManager : MonoBehaviour
         playerStartHeight = GlobalGameManager.player.transform.position.y;
     }
 
-    public Vector2 GetRandomSpawnTransform()
+    public Vector2 GetRandomSpawnTransform(float forceValue = 0f)
     {
-        float randomValue = UnityEngine.Random.Range(0f, 1f);
+        float randomValue = 0f;
+        if (forceValue != 0) randomValue = forceValue;
+        else randomValue = UnityEngine.Random.Range(0f, 1f);
+
         if (randomValue < 0.25f)
         {
             return new Vector2(spawn1, playerStartHeight);
@@ -72,7 +78,18 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawningEnemies(object sender, System.EventArgs e)
     {
         amountOfEnemiesKilled = 0;
-        StartCoroutine(StartSpawningWave());
+        if (bSpawnBoss)
+            SpawnBossEnemy();
+        else
+            StartCoroutine(StartSpawningWave());
+    }
+
+    private void SpawnBossEnemy()
+    {
+        GameObject prefab = listOfBosses[0];
+        var locationToSpawn = GetRandomSpawnTransform(1);
+        locationToSpawn.y += 10;
+        SpawnEnemy(prefab, locationToSpawn);
     }
 
     private float GetLevelSpawnTimer(int currentLevel)
@@ -102,7 +119,7 @@ public class SpawnManager : MonoBehaviour
         {
             int currentLevel = levelManager.GetCurrentLevel();
             GameObject prefab = GetEnemyPrefab(currentLevel);
-            SpawnEnemy(prefab);
+            SpawnEnemy(prefab, GetRandomSpawnTransform());
             yield return new WaitForSeconds(GetLevelSpawnTimer(currentLevel));
         }
     }
@@ -149,6 +166,13 @@ public class SpawnManager : MonoBehaviour
 
     private void EnemyDeath(object sender, System.EventArgs e)
     {
+        EnemyDeathArgs enemyDeathArgs = (EnemyDeathArgs) e;
+
+        if(enemyDeathArgs.tag == "Boss")
+        {
+            bSpawnBoss = false;
+        }
+
         amountOfEnemiesKilled++;
         if (amountOfEnemiesKilled == GetAmountOfEnemiesOfLevel())
         {
@@ -156,10 +180,10 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy(GameObject prefab)
+    private void SpawnEnemy(GameObject prefab, Vector2 location)
     {
-        GameObject newEnemy = Instantiate(prefab, GetRandomSpawnTransform(), Quaternion.identity);
+        GameObject newEnemy = Instantiate(prefab, location, Quaternion.identity);
         BaseEnemy baseEnemy = newEnemy.GetComponent<BaseEnemy>();
-        baseEnemy.StartActing();
+        if(!bSpawnBoss) baseEnemy.StartActing();
     }
 }

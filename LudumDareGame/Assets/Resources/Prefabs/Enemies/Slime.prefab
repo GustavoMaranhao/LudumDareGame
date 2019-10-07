@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5501342829737801741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5501342830718465268}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5501342830228402744}
   m_Layer: 8
   m_Name: RightAttackTrigger
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
   canStartAttack: 0
   isAttacking: 0
   listOfItems:
-  - {fileID: 3326353583164930389, guid: 9770a5cea5cd9854d8cd88c464bec2ae, type: 3}
+  - {fileID: 1482191988110525708, guid: 24aed0e53a6a210458d981246a9689b0, type: 3}
 --- !u!1 &5501342830680774256
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 5501342830680774258}
   m_Layer: 8
   m_Name: LeftAttackTrigger
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,7 +475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5501342830718465269}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 25, y: 1.875, z: 1}
   m_Children:
   - {fileID: 5501342829737801740}
