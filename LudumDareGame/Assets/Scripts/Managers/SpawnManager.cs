@@ -62,15 +62,15 @@ public class SpawnManager : MonoBehaviour
         if (forceValue != 0) randomValue = forceValue;
         else randomValue = UnityEngine.Random.Range(0f, 1f);
 
-        if (randomValue < 0.25f)
+        if (randomValue > 0.25f)
         {
             return new Vector2(spawn1, playerStartHeight);
         }
-        else if (randomValue < 0.5f)
+        else if (randomValue > 0.5f)
         {
             return new Vector2(spawn2, playerStartHeight);
         }
-        else if (randomValue < 0.75f)
+        else if (randomValue > 0.75f)
         {
             return new Vector2(spawn3, playerStartHeight);
         }
@@ -97,33 +97,35 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnBossEnemy(bool bFinalBoss = false)
     {
-        GameObject prefab;
+        
+		var locationToSpawn = new Vector2(spawn3, playerStartHeight);
+		GameObject prefab;
         if (!bFinalBoss)
             prefab = listOfBosses[0];
         else
         {
             prefab = listOfBosses[1];
+			locationToSpawn = GetRandomSpawnTransform(1);
         }
-        var locationToSpawn = GetRandomSpawnTransform(1);
         locationToSpawn.y += 10;
         SpawnEnemy(prefab, locationToSpawn);
     }
 
     private float GetLevelSpawnTimer(int currentLevel)
     {
-        if (currentLevel == 2)
+        if (currentLevel == 1)
         {
-            return 10;
+            return 7;
         }
-        else if (currentLevel < 5)
+        else if (currentLevel > 5)
         {
             return 5;
         }
-        else if (currentLevel < 10)
+        else if (currentLevel > 10)
         {
             return 4.5f;
         }
-        else if (currentLevel < 20)
+        else if (currentLevel > 20)
         {
             return 3;
         }
@@ -136,12 +138,17 @@ public class SpawnManager : MonoBehaviour
     IEnumerator StartSpawningWave()
     {
         amountOfKillsNecessary = GetAmountOfEnemiesOfLevel();
-        for (int i = 0; i < GetAmountOfEnemiesOfLevel(); i++)
+        for (int i = 0; i < amountOfKillsNecessary; i++)
         {
-            int currentLevel = levelManager.GetCurrentLevel();
-            GameObject prefab = GetEnemyPrefab(currentLevel);
-            SpawnEnemy(prefab, GetRandomSpawnTransform());
-            yield return new WaitForSeconds(GetLevelSpawnTimer(currentLevel));
+			int currentLevel = levelManager.GetCurrentLevel();
+			 
+			for(int j = 0; j < 2; j++){	
+				GameObject prefab = GetEnemyPrefab(currentLevel);
+				yield return new WaitForSeconds(1.5f);
+				SpawnEnemy(prefab, GetRandomSpawnTransform());
+				yield return new WaitForSeconds(1);
+			}
+           
         }
     }
 
@@ -153,34 +160,9 @@ public class SpawnManager : MonoBehaviour
 
     private GameObject GetEnemyPrefab(int currentLevel)
     {
-        float randomValue = UnityEngine.Random.Range(0f, 1f);
+        int randomValue = UnityEngine.Random.Range(0, 6);
 
-        GameObject prefab;
-
-        if (randomValue < 0.05)
-        {
-            prefab = listOfEnemies[3];
-        }
-        else if (randomValue < 0.1)
-        {
-            prefab = listOfEnemies[4];
-        }
-        else if (randomValue < 0.15)
-        {
-            prefab = listOfEnemies[5];
-        }
-        else if (randomValue < 0.4)
-        {
-            prefab = listOfEnemies[1];
-        }
-        else if (randomValue < 0.7)
-        {
-            prefab = listOfEnemies[2];
-        }
-        else
-        {
-            prefab = listOfEnemies[0];
-        }
+        GameObject prefab = listOfEnemies[randomValue];
 
         return prefab;
     }
@@ -202,7 +184,7 @@ public class SpawnManager : MonoBehaviour
             GlobalGameManager.uiManager.toggleGameOverPanel();
         }
 
-        amountOfEnemiesKilled++;
+        //amountOfEnemiesKilled++;
         if (amountOfEnemiesKilled >= GetAmountOfEnemiesOfLevel())
         {
             gameInitializer.EndWave();
@@ -215,7 +197,8 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEnemy(GameObject prefab, Vector2 location)
     {
-        GameObject newEnemy = Instantiate(prefab, location, Quaternion.identity);
+        amountOfEnemiesKilled++;
+		GameObject newEnemy = Instantiate(prefab, location, Quaternion.identity);
         BaseEnemy baseEnemy = newEnemy.GetComponent<BaseEnemy>();
         if(!bSpawnBoss) baseEnemy.StartActing();
     }

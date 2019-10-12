@@ -92,7 +92,8 @@ GameObject:
   - component: {fileID: 5501342830228402746}
   - component: {fileID: 5501342830228402747}
   - component: {fileID: 5501342830228402744}
-  m_Layer: 8
+  - component: {fileID: 5007968584937769459}
+  m_Layer: 12
   m_Name: RightAttackTrigger
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
@@ -126,7 +127,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.0188875, y: -0.07819629}
+  m_Offset: {x: 1.4137132, y: -0.07819629}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -137,7 +138,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.0222244, y: 6.429024}
+  m_Size: {x: 2.8118758, y: 6.429024}
   m_EdgeRadius: 0
 --- !u!95 &5501342830228402747
 Animator:
@@ -173,6 +174,29 @@ MonoBehaviour:
   pushbackForce: 10
   pushToTheLeft: 0
   pushToTheRight: 1
+  weaponSound: {fileID: 0}
+  punchSound: {fileID: 0}
+--- !u!50 &5007968584937769459
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5501342830228402726}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5501342830559537935
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +211,7 @@ GameObject:
   - component: {fileID: 5501342830559537925}
   - component: {fileID: 5501342830559537922}
   - component: {fileID: 5501342830559537923}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Bat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -292,7 +316,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15205121, y: 0.041217804}
+  m_Offset: {x: -0.12917852, y: 0.041217804}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.35}
@@ -303,7 +327,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.563011, y: 8.32333}
+  m_Size: {x: 6.2580385, y: 8.32333}
   m_EdgeRadius: 0
 --- !u!50 &5501342830559537922
 Rigidbody2D:
@@ -338,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1827601d3774224e800bf3d03b88cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 15
   atkDamage: 3
   atkSpeed: 0.5
   health: 20
@@ -350,6 +374,7 @@ MonoBehaviour:
   canDamage: 1
   baseWeaponObjLeft: {fileID: 0}
   baseWeaponObjRight: {fileID: 0}
+  damageSound: {fileID: 0}
   enemyLevel: 0
   minDistanceToPlayer: 6
   chanceToDropItems: 40
@@ -369,7 +394,8 @@ GameObject:
   - component: {fileID: 5501342830680774260}
   - component: {fileID: 5501342830680774261}
   - component: {fileID: 5501342830680774258}
-  m_Layer: 8
+  - component: {fileID: 9171197836414900025}
+  m_Layer: 12
   m_Name: LeftAttackTrigger
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
@@ -403,7 +429,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.072983, y: -0.07819629}
+  m_Offset: {x: -1.6041881, y: -0.07819629}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -414,7 +440,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.1211467, y: 6.429024}
+  m_Size: {x: 3.1835568, y: 6.429024}
   m_EdgeRadius: 0
 --- !u!95 &5501342830680774261
 Animator:
@@ -450,6 +476,29 @@ MonoBehaviour:
   pushbackForce: 10
   pushToTheLeft: 1
   pushToTheRight: 0
+  weaponSound: {fileID: 0}
+  punchSound: {fileID: 0}
+--- !u!50 &9171197836414900025
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5501342830680774256}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5501342830718465269
 GameObject:
   m_ObjectHideFlags: 0

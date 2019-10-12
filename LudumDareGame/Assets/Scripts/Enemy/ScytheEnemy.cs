@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class ScytheEnemy : BaseEnemy
 {
-    public int brainTick = 10;
+    public int brainTick = 5;
     public float minDistanceToActivate = 50f;
     public int timeActive = 5;
 
     private float timer = 0f;
     private bool bShouldAct = true;
     private bool bIsPlayerNear = false;
+	private bool waiting = true;
+	
+	private GameObject messagedeathBrief;
 
     private Vector3 startingPosition;
 
@@ -23,13 +26,23 @@ public class ScytheEnemy : BaseEnemy
 
         baseWeaponObjLeft = transform.Find("LeftAttackTrigger").gameObject.GetComponent<WeaponTriggers>();
         baseWeaponObjRight = transform.Find("RightAttackTrigger").gameObject.GetComponent<WeaponTriggers>();
+		
+		messagedeathBrief = GameObject.FindGameObjectWithTag("messageDeathBrief");
+		messagedeathBrief.SetActive(false);
 
         startingPosition = transform.position;
     }
 
     protected void Update()
     {
-        if (timer > brainTick)
+        if(waiting){
+			//Debug.Log("transform.tag" + transform.tag + "collision.tag: " + collision.tag);
+			if(Vector3.Magnitude(GlobalGameManager.player.transform.position - startingPosition) > 20f) return;
+			StartCoroutine(DeathBrief());
+			return;
+		}
+		
+		if (timer > brainTick)
         {
             StartCoroutine(ScytheBrainActive());
         }
@@ -40,18 +53,16 @@ public class ScytheEnemy : BaseEnemy
 
         bIsPlayerNear = Vector3.Magnitude(GlobalGameManager.player.transform.position - gameObject.transform.position) < minDistanceToActivate;
 
-        spriteRenderer.flipX = !((transform.position - GlobalGameManager.player.transform.position).x >= 0);
-
         if (bShouldAct && bIsPlayerNear)
             base.Update();
 
+		spriteRenderer.flipX = !((transform.position - GlobalGameManager.player.transform.position).x >= 0);
         if (!bIsPlayerNear)
         {
             spriteAnimator.SetTrigger("GoToIdle");
             float step = speed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, startingPosition, step);
         }
-
     }
 
     IEnumerator ScytheBrainActive()
@@ -63,4 +74,11 @@ public class ScytheEnemy : BaseEnemy
         bShouldAct = false;
         timer = 0;
     }
+	
+	IEnumerator DeathBrief(){
+		messagedeathBrief.SetActive(true);		
+		yield return new WaitForSeconds(4);
+		messagedeathBrief.SetActive(false);
+		waiting = false;		
+	}
 }

@@ -223,7 +223,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.13296986, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -234,7 +234,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.24, y: 10.24}
+  m_Size: {x: 4.3362064, y: 10.24}
   m_EdgeRadius: 0
 --- !u!114 &2347000321893152099
 MonoBehaviour:
@@ -251,7 +251,6 @@ MonoBehaviour:
   listOfItems:
   - {fileID: 3326353583164930389, guid: 5c89531aa0138f74a8b692c3743dd572, type: 3}
   chestDisappearTime: 5
-  chestOpenSound: {fileID: 0}
 --- !u!95 &734372187
 Animator:
   serializedVersion: 3

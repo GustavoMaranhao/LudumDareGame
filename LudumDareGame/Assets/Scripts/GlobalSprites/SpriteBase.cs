@@ -14,8 +14,10 @@ public class SpriteBase : MonoBehaviour
     public float startingFlashCD = 0.5f;
 
     public float pushbackTimer = 0.2f;
+	public Rigidbody2D rigidBody;
 
-    protected BoxCollider2D boxCollider;
+    public BoxCollider2D boxCollider;
+	
     protected SpriteRenderer spriteRenderer;
     protected Animator spriteAnimator;
 
@@ -43,6 +45,7 @@ public class SpriteBase : MonoBehaviour
     public void Start()
     {
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
+		rigidBody = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteAnimator = gameObject.GetComponent<Animator>();
 
@@ -75,8 +78,7 @@ public class SpriteBase : MonoBehaviour
 
         if(!bIsDead) FloatingTextController.CreateFloatingText(newAmount.ToString(), transform);
 
-        if(pushbackForce > 0) SpritePushback(pushbackDirection, pushbackForce);
-
+        
         health -= newAmount;
         if (health <= 0)
         {
@@ -84,6 +86,8 @@ public class SpriteBase : MonoBehaviour
             health = 0;
             bIsDead = true;
         }
+		
+		if(pushbackForce > 0) SpritePushback(pushbackDirection, pushbackForce);
 
         UpdateHealthBar();
 

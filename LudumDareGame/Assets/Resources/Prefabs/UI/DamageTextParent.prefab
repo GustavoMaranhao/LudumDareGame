@@ -163,3 +163,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAnimator: {fileID: 4515105002636491998}
+  healTextAnimator: {fileID: 0}

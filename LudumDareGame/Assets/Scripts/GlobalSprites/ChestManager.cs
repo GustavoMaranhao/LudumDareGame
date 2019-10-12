@@ -5,23 +5,23 @@ using UnityEngine;
 public class ChestManager : MonoBehaviour
 {
     public List<GameObject> listOfItems;
-    public int chestDisappearTime = 5;
+    public int chestDisappearTime = 3;
 
     private bool bIsPlayerNear = false;
     private Animator spriteAnimator;
+	private bool hasLooted = false;
 
     private AudioSource chestOpenSound;
 
     private void Start()
     {
         spriteAnimator = GetComponent<Animator>();
-
         chestOpenSound = GameObject.Find("chestSound").GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        if (bIsPlayerNear)
+        if (bIsPlayerNear && !hasLooted)
         {
             if (Input.GetButtonUp("Fire2"))
             {
@@ -29,6 +29,7 @@ public class ChestManager : MonoBehaviour
 
                 spriteAnimator.SetTrigger("OpenChest");
                 DropItem();
+				hasLooted = true;
                 StartCoroutine(ChestDisappear());
             }
         }
@@ -46,8 +47,10 @@ public class ChestManager : MonoBehaviour
         if (listOfItems.Count > 0)
         {
             int index = Random.Range(0, listOfItems.Count);
+			Debug.Log("index: " + index);
             GameObject item = Instantiate(listOfItems[index], this.transform.localPosition, Quaternion.identity);
             item.transform.position = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y, -1);
+            //Destroy(gameObject);
         }
 
     }

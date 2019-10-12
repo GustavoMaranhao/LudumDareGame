@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990713411021461078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.24, y: 0, z: 0}
+  m_LocalPosition: {x: -7.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7203072698494726402}
@@ -113,7 +113,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990713411021461078}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -139,7 +139,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.21629786, y: -0.1757412}
+  m_Offset: {x: -0.215926, y: 1.6242825}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -150,7 +150,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.1644797, y: 6.596695}
+  m_Size: {x: 0.39334413, y: 0.38407207}
   m_EdgeRadius: 0
 --- !u!114 &528184818
 MonoBehaviour:
@@ -166,12 +166,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   atkDamage: 5
-  atkSpeed: 0
+  atkSpeed: 1
   health: 20
   defenseReduction: 0
   invulnFlashes: 5
   startingFlashCD: 0.5
   pushbackTimer: 0.2
+  rigidBody: {fileID: 0}
+  boxCollider: {fileID: 0}
   canAct: 1
   canDamage: 1
   baseWeaponObjLeft: {fileID: 0}
@@ -185,7 +187,7 @@ MonoBehaviour:
   listOfItems: []
   brainTick: 1
   minDistanceToActivate: 55
-  timeActive: 2
+  timeActive: 1
 --- !u!1 &7203072697993653730
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,13 +361,14 @@ GameObject:
   - component: {fileID: 7203072698308199908}
   - component: {fileID: 7203072698308199909}
   - component: {fileID: 7203072698308199910}
-  m_Layer: 8
+  - component: {fileID: 2955189648901916442}
+  m_Layer: 12
   m_Name: LeftAttackTrigger
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7203072698308199911
 Transform:
   m_ObjectHideFlags: 0
@@ -393,7 +396,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.072983, y: -0.07819629}
+  m_Offset: {x: -2.7468123, y: -0.07819629}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -404,7 +407,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.1211467, y: 6.429024}
+  m_Size: {x: 2.773488, y: 6.429024}
   m_EdgeRadius: 0
 --- !u!95 &7203072698308199909
 Animator:
@@ -442,6 +445,27 @@ MonoBehaviour:
   pushToTheRight: 0
   weaponSound: {fileID: 0}
   punchSound: {fileID: 0}
+--- !u!50 &2955189648901916442
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203072698308199832}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7203072698494726403
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,13 +478,14 @@ GameObject:
   - component: {fileID: 7203072698494726415}
   - component: {fileID: 7203072698494726400}
   - component: {fileID: 7203072698494726401}
-  m_Layer: 8
+  - component: {fileID: 4804389413383992892}
+  m_Layer: 12
   m_Name: RightAttackTrigger
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7203072698494726402
 Transform:
   m_ObjectHideFlags: 0
@@ -488,7 +513,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.0188875, y: -0.07819629}
+  m_Offset: {x: 2.4681067, y: -0.07819629}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -499,7 +524,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.0222244, y: 6.429024}
+  m_Size: {x: 3.123786, y: 6.429024}
   m_EdgeRadius: 0
 --- !u!95 &7203072698494726400
 Animator:
@@ -537,6 +562,27 @@ MonoBehaviour:
   pushToTheRight: 1
   weaponSound: {fileID: 0}
   punchSound: {fileID: 0}
+--- !u!50 &4804389413383992892
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203072698494726403}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7203072698604907859
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,7 +722,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7203072698604907859}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -709,6 +755,8 @@ MonoBehaviour:
   invulnFlashes: 1
   startingFlashCD: 0.5
   pushbackTimer: 0.2
+  rigidBody: {fileID: 0}
+  boxCollider: {fileID: 0}
   canAct: 1
   canDamage: 1
   baseWeaponObjLeft: {fileID: 0}

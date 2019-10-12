@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1220795580355704628}
   - component: {fileID: 3602875211643041787}
   - component: {fileID: 1259613874113779561}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: LeftAttackTrigger
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
@@ -93,6 +93,8 @@ MonoBehaviour:
   pushbackForce: 10
   pushToTheLeft: 1
   pushToTheRight: 0
+  weaponSound: {fileID: 0}
+  punchSound: {fileID: 0}
 --- !u!1 &4180335908013650902
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +188,7 @@ GameObject:
   - component: {fileID: 1836414521833720666}
   - component: {fileID: 1409942397378866190}
   - component: {fileID: 2164753127785560384}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: RightAttackTrigger
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
@@ -267,6 +269,8 @@ MonoBehaviour:
   pushbackForce: 10
   pushToTheLeft: 0
   pushToTheRight: 1
+  weaponSound: {fileID: 0}
+  punchSound: {fileID: 0}
 --- !u!1 &6661185477146470769
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +285,7 @@ GameObject:
   - component: {fileID: 1501590198919482726}
   - component: {fileID: 1234727574723966094}
   - component: {fileID: 6122686004185032575}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Demon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -386,7 +390,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.76788783, y: -0.85822535}
+  m_Offset: {x: 0.6553652, y: -0.85822535}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -397,7 +401,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.536074, y: 7.0781145}
+  m_Size: {x: 6.7611194, y: 7.0781145}
   m_EdgeRadius: 0
 --- !u!50 &1234727574723966094
 Rigidbody2D:
@@ -444,8 +448,9 @@ MonoBehaviour:
   canDamage: 1
   baseWeaponObjLeft: {fileID: 0}
   baseWeaponObjRight: {fileID: 0}
+  damageSound: {fileID: 0}
   enemyLevel: 0
-  minDistanceToPlayer: 13
+  minDistanceToPlayer: 20
   chanceToDropItems: 100
   canStartAttack: 0
   isAttacking: 0

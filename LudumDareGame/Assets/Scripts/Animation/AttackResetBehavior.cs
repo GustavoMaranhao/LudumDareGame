@@ -27,6 +27,10 @@ public class AttackResetBehavior : StateMachineBehaviour
             playerControls.bShouldDash = false;
             playerControls.baseWeaponObjLeft.ToggleWeaponState(false);
             playerControls.baseWeaponObjRight.ToggleWeaponState(false);
+			
+			playerControls.rigidBody.simulated = true;
+			playerControls.rigidBody.isKinematic = false;
+			playerControls.boxCollider.enabled = true;
 
             animator.ResetTrigger("AttackWithSword");
             animator.ResetTrigger("Dash");

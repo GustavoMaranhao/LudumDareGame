@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseEnemy : SpriteBase
 {
     public int enemyLevel;
-    public float minDistanceToPlayer = 5f;
+    public float minDistanceToPlayer = 1f;
     public float chanceToDropItems = 100f;
 
     private Transform playerTransform;
@@ -40,7 +40,7 @@ public class BaseEnemy : SpriteBase
     {
         if (canStartAttack)
         {
-            spriteAnimator.SetTrigger("Attack");
+            //spriteAnimator.SetTrigger("Attack");
             if (isAttacking)
             {
                 return;
@@ -68,7 +68,11 @@ public class BaseEnemy : SpriteBase
 
     internal virtual void Attack()
     {
-        if (bIsDead) return;
+        if (bIsDead){
+			GetComponent<BoxCollider2D>().enabled = false;
+			canStartAttack = false;
+			return;
+		}
 
         if (!spriteRenderer.flipX)
             baseWeaponObjLeft.ToggleWeaponState(true);
@@ -77,8 +81,8 @@ public class BaseEnemy : SpriteBase
     }
 
     internal bool checkIfPlayerClose()
-    {
-        return Vector3.Magnitude(transform.position - GlobalGameManager.player.transform.position) <= minDistanceToPlayer;
+    {	
+        return Vector2.Distance(transform.position, GlobalGameManager.player.transform.position) <= minDistanceToPlayer;
     }
 
     private void MoveTowardsPlayer()

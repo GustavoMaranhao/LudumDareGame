@@ -30,6 +30,7 @@ public class WeaponTriggers : MonoBehaviour
 
     private void Update()
     {
+		//Debug.Log("transform.tag" + transform.tag + "collision.tag: " + collision.tag);
         if (isInHurtArea && collision != null)
         {
             if (!GetComponentInParent<SpriteBase>().canDamage) return;
@@ -40,8 +41,8 @@ public class WeaponTriggers : MonoBehaviour
 
                 if (collision.GetComponent<DeathEnemy>() != null)
                 {
-                    if(!collision.GetComponent<DeathEnemy>().bIsInvincible)
-                        collision.gameObject.GetComponent<DeathEnemy>().ReceiveDamage(GlobalGameManager.player.atkDamage);
+                    //if(!collision.GetComponent<DeathEnemy>().bIsInvincible)
+                    collision.gameObject.GetComponent<DeathEnemy>().ReceiveDamage(GlobalGameManager.player.atkDamage);
                 }
                 else
                 {
@@ -50,7 +51,7 @@ public class WeaponTriggers : MonoBehaviour
                     if (pushToTheRight && !pushToTheLeft) lookDirection = Vector3.right;
                     collision.gameObject.GetComponent<BaseEnemy>().ReceiveDamage(GlobalGameManager.player.atkDamage, lookDirection, pushbackForce);
                 }
-            }
+            }else
             if (collision.tag == "Player")
             {
                 collision.gameObject.GetComponent<PlayerControls>().ReceiveDamage(GetComponentInParent<SpriteBase>().atkDamage);
@@ -67,6 +68,7 @@ public class WeaponTriggers : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isInHurtArea = false;
+		isInHurtArea = false;
+		this.collision = null;
     }
 }

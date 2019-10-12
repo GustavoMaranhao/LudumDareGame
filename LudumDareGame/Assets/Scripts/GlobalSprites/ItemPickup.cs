@@ -28,7 +28,9 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        
+		Debug.Log("CHECK");
+		if(collision.gameObject.tag == "Player")
         {
             GlobalEvents.ItemCollected(this, new ItemCollectedEventArgs(item));
             GlobalGameManager.player.ItemCollected(item);

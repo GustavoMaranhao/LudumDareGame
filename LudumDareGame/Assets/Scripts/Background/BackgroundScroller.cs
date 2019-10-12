@@ -55,11 +55,12 @@ public class BackgroundScroller : MonoBehaviour
         WallEventArgs args = (WallEventArgs) e;
         if (args.tag == "EndWall")
         {
-            GlobalGameManager.player.transform.position = stageStartPosition.position + Vector3.right*10;
+            GlobalGameManager.player.transform.position = stageStartPosition.position + Vector3.right*3;
+
         }
         if (args.tag == "StartWall")
         {
-            GlobalGameManager.player.transform.position = stageEndPosition.position + Vector3.left*10;
+            GlobalGameManager.player.transform.position = stageEndPosition.position + Vector3.left*3;
         }
     }
 

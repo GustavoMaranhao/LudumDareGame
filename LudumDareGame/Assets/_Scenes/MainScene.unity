@@ -188,7 +188,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Guilherme Nery - Art and Story
+  m_Text: 'Guilherme Nery (Kaizo)- Art and Story
 
 
     Gustavo Franckevicius - Coding and Sound'
@@ -268,8 +268,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Now if the warrior wants to be set free, he needs to challenge Death herself
-    in order to reclaim his soul and be set free.
+  m_Text: Now to have his revenge the warrior must face DEATH himself in order to
+    fulfill his Revenge!
 --- !u!222 &105372639
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1559,8 +1559,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -170}
-  m_SizeDelta: {x: 480, y: 100}
+  m_AnchoredPosition: {x: -77, y: -247.62}
+  m_SizeDelta: {x: 480, y: 123.24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &810863587
 MonoBehaviour:
@@ -1597,7 +1597,9 @@ MonoBehaviour:
 
     WASD - Movement     Space Bar - Attack
 
-    Left Shift - Dash         F - Interact'
+    Left Shift - Dash         F - Interact
+
+    You are invincible while dashing.'
 --- !u!222 &810863588
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1643,7 +1645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: 48}
+  m_AnchoredPosition: {x: 430, y: 57}
   m_SizeDelta: {x: 160.26, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &897201969
@@ -1991,7 +1993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: 148}
+  m_AnchoredPosition: {x: 430, y: 157}
   m_SizeDelta: {x: 160.26, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1238926194
@@ -2128,9 +2130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aba0fbb009ea6b4bac7f247c32b3574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soulItem: {fileID: 0}
-  swordItem: {fileID: 0}
-  armorItem: {fileID: 0}
+  soulItem: {fileID: 3326353583164930389, guid: 5c89531aa0138f74a8b692c3743dd572,
+    type: 3}
+  swordItem: {fileID: 3326353583164930389, guid: 9770a5cea5cd9854d8cd88c464bec2ae,
+    type: 3}
+  armorItem: {fileID: 3326353583164930389, guid: 517c4673011c41c4a8749bfdd52c4ed0,
+    type: 3}
   CreditsMenuPanel: {fileID: 951050820}
   MainMenuPanel: {fileID: 1582690477}
   storyPanelRoot: {fileID: 440566203}
@@ -2260,8 +2265,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -129, y: 319}
-  m_SizeDelta: {x: 719.9, y: 453.1}
+  m_AnchoredPosition: {x: -267.26, y: 409}
+  m_SizeDelta: {x: 914, y: 585.8}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1370848725
 MonoBehaviour:
@@ -2570,7 +2575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: 98}
+  m_AnchoredPosition: {x: 430, y: 107}
   m_SizeDelta: {x: 160.26, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1813107890
@@ -2746,9 +2751,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: After the warrior was finally put down by a group of those closest to him,
-    his conscience was sent to the nether realm to be used as toy in a neverending
-    cycle of killing.
+  m_Text: One day the warrior was killed by a powerful demon, whose name cannot be
+    pronounced.
 --- !u!222 &2037045285
 CanvasRenderer:
   m_ObjectHideFlags: 0

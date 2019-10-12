@@ -14,6 +14,8 @@ TagManager:
   - GameOverText
   - EnemyAttack
   - QuickMessagePanel
+  - PlayerAttack
+  - messageDeathBrief
   layers:
   - Default
   - TransparentFX
@@ -23,12 +25,12 @@ TagManager:
   - UI
   - 
   - 
-  - WeaponHurtZone
+  - HeroHurtZone
   - Playables
   - Boss
   - Player
-  - 
-  - 
+  - EnemiesHurtZone
+  - Enemies
   - 
   - 
   - 

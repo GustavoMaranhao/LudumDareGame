@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public GameObject soulItem;
-    public GameObject swordItem;
-    public GameObject armorItem;
+    public GameObject soulItemHUD;
+    public GameObject swordItemHUD;
+    public GameObject armorItemHUD;
 
     public GameObject CreditsMenuPanel;
     public GameObject MainMenuPanel;
@@ -27,7 +27,7 @@ public class ButtonManager : MonoBehaviour
 
     private void ReceivedItem(object sender, System.EventArgs e)
     {
-        if (!(armorItem || swordItem || soulItem)) return;
+        if (!(armorItemHUD || swordItemHUD || soulItemHUD)) return;
 
         ItemCollectedEventArgs args = (ItemCollectedEventArgs) e;
         EnableItem(args.item);
@@ -69,10 +69,10 @@ public class ButtonManager : MonoBehaviour
 
     private void ResetHUD()
     {
-        if (!(armorItem || swordItem || soulItem)) return;
-        armorItem.SetActive(false);
-        swordItem.SetActive(false);
-        soulItem.SetActive(false);
+        if (!(armorItemHUD || swordItemHUD || soulItemHUD)) return;
+        armorItemHUD.SetActive(false);
+        swordItemHUD.SetActive(false);
+        soulItemHUD.SetActive(false);
     }
 
     private void EnableItem(ItemType item)
@@ -80,13 +80,13 @@ public class ButtonManager : MonoBehaviour
         switch (item)
         {
             case ItemType.Armor:
-                armorItem.SetActive(true);
+                armorItemHUD.SetActive(true);
                 break;
             case ItemType.Sword:
-                swordItem.SetActive(true);
+                swordItemHUD.SetActive(true);
                 break;
             case ItemType.Soul:
-                soulItem.SetActive(true);
+                soulItemHUD.SetActive(true);
                 break;
         }
     }

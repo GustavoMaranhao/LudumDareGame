@@ -20,24 +20,30 @@ public class PlayerControls : SpriteBase
     [HideInInspector]
     public bool bIsAttacking = false;
 
-    public float dashSpeed = 5f;
+    public float dashSpeed = 4f;
     [HideInInspector]
     public bool bShouldDash = false;
 
     public AudioSource itemPickUpSound;
     public AudioSource dashSound;
+	BoxCollider2D triggerLeft;
+	BoxCollider2D triggerRight;
 
-    void Start()
+    new void Start()
     {
         base.Start();
 
         UpdateHealthBar();
+		triggerLeft = GetComponent("LeftAttackTrigger") as BoxCollider2D;
+		triggerRight = GetComponent("RightAttackTrigger") as BoxCollider2D;
+		
+        baseWeaponObjRight = transform.Find("RightAttackTrigger").gameObject.GetComponent<WeaponTriggers>();
 
         spriteAnimator.SetBool("bIsGhost", true);
         spriteAnimator.SetTrigger("GoToIdle");
     }
 
-    void FixedUpdate()
+    new void FixedUpdate()
     {
         base.FixedUpdate();
 
@@ -69,14 +75,14 @@ public class PlayerControls : SpriteBase
             spriteAnimator.SetBool("bIsWalking", false);
         }
 
-        if (!bIsAttacking && Input.GetButtonUp("Fire1"))
+        if (!bIsAttacking && Input.GetButtonDown("Fire1"))
         {
-            StartCoroutine(PlayerAttack());
+			PlayerAttack2();
         }
 
-        if(!bIsAttacking && Input.GetButtonUp("Fire3"))
+        if(!bIsAttacking && Input.GetButtonDown("Fire3"))
         {
-            if (dashSound != null) dashSound.Play();
+            if (dashSound != null && bShouldDash == false) dashSound.Play();
 
             bShouldDash = true;
             spriteAnimator.SetTrigger("Dash");
@@ -88,10 +94,14 @@ public class PlayerControls : SpriteBase
             if (spriteRenderer.flipX) pushbackDir = Vector3.left;
             else pushbackDir = Vector3.right;
             pushbackDir *= dashSpeed;
+			boxCollider.enabled = false;
+			rigidBody.simulated = false;
+			rigidBody.isKinematic = true;
             transform.position = Vector2.Lerp(transform.position, transform.position + pushbackDir, dashSpeed * Time.fixedDeltaTime);
-        }
 
-        IEnumerator PlayerAttack()
+        }
+		
+		void PlayerAttack2()
         {
             bIsAttacking = true;
 
@@ -99,14 +109,15 @@ public class PlayerControls : SpriteBase
             if(!hasSword) spriteAnimator.SetTrigger("Attack");
             else spriteAnimator.SetTrigger("AttackWithSword");
 
-            yield return new WaitForSeconds(0.3f);
+            //yield return new WaitForSeconds(0.3f);
 
             if (spriteRenderer.flipX)
                 baseWeaponObjLeft.ToggleWeaponState(true);
             else
                 baseWeaponObjRight.ToggleWeaponState(true);
 
-            yield return new WaitForSeconds(atkSpeed);
+            //yield return new WaitForSeconds(atkSpeed);
+			
         }
     }
 
@@ -120,9 +131,11 @@ public class PlayerControls : SpriteBase
                 hasSword = true;
                 atkSpeed = 0.6f;
                 atkDamage = 10;
+				triggerLeft.size = new Vector2(3.5f, 6.9f);
+				triggerRight.size = new Vector2(3.5f, 6.9f);
                 break;
             case ItemType.Armor:
-                defenseReduction = 2f;
+                defenseReduction = 3f;
                 spriteAnimator.SetBool("bHasArmor", true);
                 spriteAnimator.SetTrigger("GoToIdle");
                 break;
@@ -140,10 +153,12 @@ public class PlayerControls : SpriteBase
         }
     }
 
-    public void ReceiveDamage(float amount, Vector3 pushbackDirection = new Vector3(), float pushbackForce = 0f)
+    new public void ReceiveDamage(float amount, Vector3 pushbackDirection = new Vector3(), float pushbackForce = 0f)
     {
-        base.ReceiveDamage(amount, pushbackDirection, pushbackForce);
-
+        
+		if(bShouldDash) return;
+		base.ReceiveDamage(amount, pushbackDirection, pushbackForce);
+		
         if (health <= 0)
         {
             GameObject.FindGameObjectWithTag("GameManager").GetComponent<EndGameManager>().gameOver = true;

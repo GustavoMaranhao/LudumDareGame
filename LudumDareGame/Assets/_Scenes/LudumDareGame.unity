@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170168788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.04, z: 0}
+  m_LocalPosition: {x: 116.3, y: 1.04, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_Children:
   - {fileID: 191064156}
@@ -228,14 +228,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533ec93047eb091449ac15735f83a9f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 20
   atkDamage: 5
   atkSpeed: 5
-  health: 55
+  health: 50
   defenseReduction: 0
   invulnFlashes: 5
-  startingFlashCD: 0.2
+  startingFlashCD: 0.5
   pushbackTimer: 0.2
+  rigidBody: {fileID: 0}
+  boxCollider: {fileID: 0}
   canAct: 1
   canDamage: 1
   baseWeaponObjLeft: {fileID: 0}
@@ -332,7 +334,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2848356d3c977ab43bc8672a8e1b233b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -456,6 +458,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171937425}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &188150168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 188150169}
+  - component: {fileID: 188150171}
+  - component: {fileID: 188150170}
+  m_Layer: 5
+  m_Name: MessageText2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &188150169
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188150168}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1171083804}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 10, y: 10}
+  m_SizeDelta: {x: 620, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &188150170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188150168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.30980393, g: 0.25490198, b: 0.19215688, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 28
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Death: How dare you to face me?
+
+    Defeat me and you`ll have your life back to get your revenge.'
+--- !u!222 &188150171
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188150168}
+  m_CullTransparentMesh: 0
 --- !u!1 &191064155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,6 +1891,7 @@ RectTransform:
   - {fileID: 1106177542}
   - {fileID: 492125533}
   - {fileID: 520691722}
+  - {fileID: 1171083804}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1888,8 +1970,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Congratulations!
 
-    You beat the most fearsome monsters of the underworld and reclaimed your life
-    energy, for now...'
+    You beat the most fearsome monsters!
+
+    You took your Vengeance!'
 --- !u!222 &1013187240
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2277,7 +2360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104518867}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 251, y: 0, z: 0}
+  m_LocalPosition: {x: 245.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.325, z: 1}
   m_Children: []
   m_Father: {fileID: 1742379925}
@@ -2296,7 +2379,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.08572197}
+  m_Offset: {x: 21.406096, y: 4.604597}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2307,7 +2390,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.546417, y: 45.06863}
+  m_Size: {x: 42.2992, y: 35.687992}
   m_EdgeRadius: 0
 --- !u!114 &1104518870
 MonoBehaviour:
@@ -2704,6 +2787,94 @@ Transform:
   m_Father: {fileID: 726193561}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1171083803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1171083804}
+  - component: {fileID: 1171083807}
+  - component: {fileID: 1171083806}
+  - component: {fileID: 1171083805}
+  m_Layer: 5
+  m_Name: DeathBrief
+  m_TagString: messageDeathBrief
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1171083804
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171083803}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_Children:
+  - {fileID: 188150169}
+  m_Father: {fileID: 1003542118}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -150}
+  m_SizeDelta: {x: 700, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1171083805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171083803}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520fc9a2048f57c4e953311fedbd6c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageUpTime: 0
+--- !u!114 &1171083806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171083803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5f118c036ea9f5242b6df9397d151aeb, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1171083807
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171083803}
+  m_CullTransparentMesh: 0
 --- !u!1 &1214638195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,8 +3034,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceab4aaf3c4ce6b429b0af21f1f5935c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0.25
-  tileSizeZ: 86
+  scrollSpeed: 0
+  tileSizeZ: 0
   stageStartPosition: {fileID: 1620966192}
   stageEndPosition: {fileID: 1104518868}
 --- !u!64 &1371607972
@@ -3236,7 +3407,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You are a failure beyond all hope.
+  m_Text: You miserably failed, your soul will return to Death domain...
 --- !u!222 &1523966627
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3313,11 +3484,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'You have defeated me for now, but my lieutenant
-
-    still has your life essence. If you fail to recover it,
-
-    I will come back for your soul!'
+  m_Text: "Death: HAHAHA, you can`t defeat DEATH! \nBut you proved your value.\nYou
+    have one chance to have your revenge!"
 --- !u!222 &1525981187
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3378,13 +3546,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aba0fbb009ea6b4bac7f247c32b3574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soulItem: {fileID: 0}
-  swordItem: {fileID: 0}
-  armorItem: {fileID: 0}
+  soulItemHUD: {fileID: 0}
+  swordItemHUD: {fileID: 0}
+  armorItemHUD: {fileID: 0}
   CreditsMenuPanel: {fileID: 0}
-  MainMenuPanel: {fileID: 0}
+  MainMenuPanel: {fileID: 1104518867}
   storyPanelRoot: {fileID: 0}
-  buttonSound: {fileID: 1588059805}
+  buttonSound: {fileID: 0}
 --- !u!95 &1572255518
 Animator:
   serializedVersion: 3
@@ -3685,7 +3853,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.08572197}
+  m_Offset: {x: -15.432844, y: 4.793106}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3696,7 +3864,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.546417, y: 45.06863}
+  m_Size: {x: 32.47156, y: 35.310974}
   m_EdgeRadius: 0
 --- !u!114 &1620966194
 MonoBehaviour:
@@ -3977,13 +4145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aba0fbb009ea6b4bac7f247c32b3574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soulItem: {fileID: 1848594910}
-  swordItem: {fileID: 1613024749}
-  armorItem: {fileID: 604464321}
+  soulItemHUD: {fileID: 1848594910}
+  swordItemHUD: {fileID: 1613024749}
+  armorItemHUD: {fileID: 604464321}
   CreditsMenuPanel: {fileID: 0}
   MainMenuPanel: {fileID: 0}
   storyPanelRoot: {fileID: 0}
-  buttonSound: {fileID: 0}
+  buttonSound: {fileID: 1588059805}
 --- !u!1 &1790685089
 GameObject:
   m_ObjectHideFlags: 0
@@ -4463,10 +4631,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listOfEnemies:
   - {fileID: 5501342830559537935, guid: 4625a50a022868c4e9d8de8235a18cc3, type: 3}
-  - {fileID: 5501342830559537935, guid: 4625a50a022868c4e9d8de8235a18cc3, type: 3}
+  - {fileID: 5501342830559537935, guid: b96492fce6b3c424897db771a8a77462, type: 3}
   - {fileID: 5501342830559537935, guid: 4625a50a022868c4e9d8de8235a18cc3, type: 3}
   - {fileID: 5501342830559537935, guid: b96492fce6b3c424897db771a8a77462, type: 3}
-  - {fileID: 5501342830559537935, guid: b96492fce6b3c424897db771a8a77462, type: 3}
+  - {fileID: 5501342830559537935, guid: 4625a50a022868c4e9d8de8235a18cc3, type: 3}
   - {fileID: 5501342830559537935, guid: b96492fce6b3c424897db771a8a77462, type: 3}
   listOfBosses:
   - {fileID: 7203072698604907859, guid: d643c8fd163f54041a6575d62ad5a08a, type: 3}
@@ -4477,8 +4645,8 @@ MonoBehaviour:
   - {fileID: 241574785}
   - {fileID: 243170443}
   amountOfKillsNecessary: 10
-  amountOfEnemiesKilled: 1
-  amountOfKillsRequiredForBoss: 20
+  amountOfEnemiesKilled: 0
+  amountOfKillsRequiredForBoss: 12
 --- !u!114 &2005995509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4503,7 +4671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e9bda767214324dbbbb64ddd5f8937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 0
+  currentLevel: 1
 --- !u!114 &2005995511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4534,8 +4702,7 @@ MonoBehaviour:
   gameOverTextPanel: {fileID: 2099126282}
   gameVictoryTextPanel: {fileID: 492125532}
   victoryScoreText: {fileID: 1992127730}
-  elementsToDeactivate:
-  - {fileID: 1754070158}
+  elementsToDeactivate: []
 --- !u!1 &2063353134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,13 +4883,14 @@ GameObject:
   - component: {fileID: 2139385741}
   - component: {fileID: 2139385740}
   - component: {fileID: 2139385742}
+  - component: {fileID: 2139385743}
   m_Layer: 8
   m_Name: RightAttackTrigger
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2139385739
 Transform:
   m_ObjectHideFlags: 0
@@ -4745,7 +4913,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139385738}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -4769,7 +4937,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.4620454, y: -0.078195095}
+  m_Offset: {x: 1.3374448, y: -0.078195095}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4780,7 +4948,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.860622, y: 6.9175444}
+  m_Size: {x: 2.6114202, y: 6.9175444}
   m_EdgeRadius: 0
 --- !u!114 &2139385742
 MonoBehaviour:
@@ -4794,11 +4962,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0240a19496432664c9775d80636f600f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushbackForce: 5
+  pushbackForce: 10
   pushToTheLeft: 0
   pushToTheRight: 1
   weaponSound: {fileID: 235542563}
   punchSound: {fileID: 1042150641}
+--- !u!50 &2139385743
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139385738}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2139848889
 GameObject:
   m_ObjectHideFlags: 0
@@ -4845,13 +5034,14 @@ GameObject:
   - component: {fileID: 2146632863}
   - component: {fileID: 2146632862}
   - component: {fileID: 2146632864}
+  - component: {fileID: 2146632865}
   m_Layer: 8
   m_Name: LeftAttackTrigger
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2146632861
 Transform:
   m_ObjectHideFlags: 0
@@ -4874,7 +5064,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146632860}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -4898,7 +5088,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.4658024, y: -0.078195095}
+  m_Offset: {x: -1.1934882, y: -0.078195095}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -4909,7 +5099,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.9407516, y: 6.917544}
+  m_Size: {x: 2.3961232, y: 6.917544}
   m_EdgeRadius: 0
 --- !u!114 &2146632864
 MonoBehaviour:
@@ -4923,11 +5113,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0240a19496432664c9775d80636f600f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushbackForce: 5
+  pushbackForce: 10
   pushToTheLeft: 1
   pushToTheRight: 0
   weaponSound: {fileID: 235542563}
   punchSound: {fileID: 1042150641}
+--- !u!50 &2146632865
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146632860}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &5785592566370542718
 PrefabInstance:
   m_ObjectHideFlags: 0

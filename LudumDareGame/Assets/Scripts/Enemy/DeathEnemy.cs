@@ -10,9 +10,9 @@ public class DeathEnemy : SpriteBase
     public List<GameObject> listOfItems;
 
     private GameObject messageToActivate;
-
+	
     [HideInInspector]
-    public bool bIsInvincible = true;
+    public bool bIsInvincible = false;
 
     private bool hasDroppedItem = false;
     private bool bDeathEventNotSent = false;
@@ -29,22 +29,12 @@ public class DeathEnemy : SpriteBase
 
         messageToActivate = GameObject.FindGameObjectWithTag("QuickMessagePanel");
         messageToActivate.SetActive(false);
+		
     }
 
     public void Update()
     {
         spriteRenderer.flipX = !((transform.position - GlobalGameManager.player.transform.position).x >= 0);
-
-        if (Vector3.Magnitude(scytheGameObject.position - transform.position) < scytheInvincibleDist)
-        {
-            spriteAnimator.SetBool("bIsInvincible", true);
-            bIsInvincible = true;
-        }
-        else
-        {
-            spriteAnimator.SetBool("bIsInvincible", false);
-            bIsInvincible = false;
-        }
 
         if (health <= 0 && !bDeathEventNotSent)
         {
@@ -77,8 +67,8 @@ public class DeathEnemy : SpriteBase
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
-        GlobalEvents.DeathTouched(this, null);
+    {	
+		GlobalEvents.DeathTouched(this, null);
     }
 
     private void OnCollisionExit2D(Collision2D collision)

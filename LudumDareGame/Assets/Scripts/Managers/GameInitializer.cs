@@ -28,8 +28,8 @@ public class GameInitializer : MonoBehaviour
 
     public IEnumerator NextWave()
     {
-        levelManager.AddLevel();
-        yield return new WaitForSeconds(5);
+        //levelManager.AddLevel();
+        yield return new WaitForSeconds(8);
         StartNextWave();
     }
 }
